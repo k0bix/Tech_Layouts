@@ -1,0 +1,66 @@
+<config>
+    <modules>
+        <Tech_Layouts>
+            <version>0.0.1</version>
+        </Tech_Layouts>
+    </modules>
+    <global>
+        <models>
+            <tech_layouts>
+                <class>Tech_Layouts_Model</class>
+            </tech_layouts>
+        </models>
+        <helpers>
+            <tech_layouts>
+                <class>Tech_Layouts_Helper</class>
+            </tech_layouts>
+        </helpers>
+        <page>
+            <layouts>
+                <catalog_root translate="label">
+                    <label>2 column catalog</label>
+                    <template>page/2column-root.phtml</template>
+                    <layout_handle>catalog_root</layout_handle>
+                </catalog_root>
+            </layouts>
+        </page>
+        <page>
+            <layouts>
+                <page_default translate="label">
+                    <label>1 column page</label>
+                    <template>page/1column-page.phtml</template>
+                    <layout_handle>page_default</layout_handle>
+                </page_default>
+            </layouts>
+        </page>
+    </global>
+    <frontend>
+        <events>
+            <controller_action_layout_load_before>
+                <observers>
+                    <add_page_layout_handle>
+                        <class>tech_layouts/observer</class>
+                        <method>beforeLoadLayout</method>
+                    </add_page_layout_handle>
+                </observers>
+            </controller_action_layout_load_before>
+
+            <catalog_controller_product_init>
+                <observers>
+                    <breadcrumb_categorypath_product_init>
+                        <type>singleton</type>
+                        <class>tech_layouts/observer</class>
+                        <method>fullBreadcrumbCategoryPath</method>
+                    </breadcrumb_categorypath_product_init>
+                </observers>
+            </catalog_controller_product_init>
+        </events>
+        <layout>
+            <updates>
+                <tech_layouts>
+                    <file>tech/layouts.xml</file>
+                </tech_layouts>
+            </updates>
+        </layout>
+    </frontend>
+</config>
